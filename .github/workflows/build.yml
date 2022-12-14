@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14.x"
+          registry-url: https://registry.npmjs.org
+      - name: NPM Install for Lambda
+        run: npm install -f ./functions --prefix ./functions
+      - name: NPM Build for Lambda
+        run: npm run --prefix ./functions build:tsc
+      - name: NPM Install
+        run: npm install
+      - name: NPM Build
+        run: npm run build

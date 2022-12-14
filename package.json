@@ -1,25 +1,57 @@
 {
-  "name": "thundra-cdk-alarm-creator",
+  "name": "@thundra/cdk-alarm-creator",
   "version": "0.1.0",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "description": "AWS CDK custom resource to create a CloudWatch Alarm based on custom Target Group metrics",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest"
+    "lint": "eslint . --ext .ts",
+    "clean": "rimraf dist coverage tsconfig.tsbuildinfo",
+    "prebuild": "npm run clean",
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build && cd functions && npm run build",
+    "release": "release-it ${VERSION_SCALE} --ci --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.2",
+    "@types/aws-lambda": "^8.10.101",
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
-    "aws-cdk-lib": "2.44.0",
+    "aws-cdk-lib": "2.27.0",
     "constructs": "^10.0.0",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.4",
+    "release-it": "^14.12.5",
+    "ts-node": "^10.7.0",
     "typescript": "~3.9.7"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "2.44.0",
+    "aws-cdk": "2.27.0",
     "constructs": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thundra-io/thundra-cdk-rds-initializer.git"
+  },
+  "keywords": [
+    "aws",
+    "aws-cdk",
+    "aws-cdk-construct",
+    "aws-cloudwatch",
+    "cloudwatch",
+    "cloudwatch alarm",
+    "cloudwatch metric"
+  ],
+  "author": "Oguzhan Ozdemir <oguzhan.ozdemir@thundra.io>",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/thundra-io/thundra-cdk-alarm-creator/issues"
+  },
+  "homepage": "https://github.com/thundra-io/thundra-cdk-alarm-creator#readme",
+  "publishConfig": {
+    "access": "public"
   }
 }
