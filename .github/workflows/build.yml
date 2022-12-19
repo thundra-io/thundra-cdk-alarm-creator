@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: "14.x"
           registry-url: https://registry.npmjs.org
+      - name: Install rimraf
+        run: npm i -g rimraf
       - name: NPM Install for Lambda
         run: npm install -f ./functions --prefix ./functions
       - name: NPM Build for Lambda
