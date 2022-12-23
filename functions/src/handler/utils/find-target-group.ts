@@ -5,7 +5,7 @@ export async function findTargetGroup(applicationName: string, region: string): 
         region: region,
     });
 
-    let foresightApiBackendTargetGroupArn: string | undefined;
+    let foundTargetGroupArn: string | undefined;
 
     let nextMarker: string | undefined = undefined;
     let nextPage: boolean = true;
@@ -38,7 +38,7 @@ export async function findTargetGroup(applicationName: string, region: string): 
                     for (const tag of tagDescription.Tags!) {
                         if (tag.Key === 'elasticbeanstalk:environment-name' && tag.Value === applicationName) {
                             console.log(`Found: ${targetGroupArn}`);
-                            foresightApiBackendTargetGroupArn = targetGroupArn;
+                            foundTargetGroupArn = targetGroupArn;
                             nextPage = false;
                             break;
                         }
@@ -47,7 +47,7 @@ export async function findTargetGroup(applicationName: string, region: string): 
             }
         }
 
-        return foresightApiBackendTargetGroupArn;
+        return foundTargetGroupArn;
     } catch (error) {
         console.log(error)
         return undefined;
