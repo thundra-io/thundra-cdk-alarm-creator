@@ -3,12 +3,12 @@ import * as cw_sdk from "@aws-sdk/client-cloudwatch";
 interface CreateCloudWatchAlarmProps {
     AlarmName: string,
     Region: string,
+    Threshold: number,
     SnsTopics: string[]
 }
 
 interface MetricDataQueryProps {
     MetricFor: '4XX' | '5XX',
-    Threshold: string,
     TargetGroupFullName: string,
     LoadBalancerFullName: string,
 }
@@ -21,7 +21,6 @@ export async function createCloudWatchAlarm(props: CreateCloudWatchAlarmProps & 
     try {
         const metricDataQuery: cw_sdk.MetricDataQuery[] = await generateMetricDataQuery({
             MetricFor: props.MetricFor,
-            Threshold: props.Threshold,
             LoadBalancerFullName: props.LoadBalancerFullName,
             TargetGroupFullName: props.TargetGroupFullName,
         });
@@ -30,7 +29,7 @@ export async function createCloudWatchAlarm(props: CreateCloudWatchAlarmProps & 
             new cw_sdk.PutMetricAlarmCommand({
                 AlarmName: props.AlarmName,
                 ComparisonOperator: cw_sdk.ComparisonOperator.GreaterThanOrEqualToThreshold,
-                Threshold: 5,
+                Threshold: props.Threshold,
                 EvaluationPeriods: 1,
                 Metrics: metricDataQuery,
                 OKActions: props.SnsTopics,
