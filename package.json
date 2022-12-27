@@ -1,6 +1,6 @@
 {
   "name": "@thundra/cdk-alarm-creator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AWS CDK custom resource to create a CloudWatch Alarm based on custom Target Group metrics",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
