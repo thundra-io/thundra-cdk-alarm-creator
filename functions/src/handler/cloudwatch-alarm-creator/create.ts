@@ -20,6 +20,7 @@ export class CloudWatchAlarmCreateHandler extends CustomResourceHandler<CloudFor
             Region: props.Region,
             MetricFor: '4XX',
             Threshold: props.Threshold4xx,
+            RequestCountThreshold: props.RequestCountThreshold4xx,
             TargetGroupFullName: targetGroupFullName,
             LoadBalancerFullName: loadBalancerFullName,
             SnsTopics: props.SnsTopics
@@ -30,6 +31,7 @@ export class CloudWatchAlarmCreateHandler extends CustomResourceHandler<CloudFor
             Region: props.Region,
             MetricFor: '5XX',
             Threshold: props.Threshold5xx,
+            RequestCountThreshold: props.RequestCountThreshold5xx,
             TargetGroupFullName: targetGroupFullName,
             LoadBalancerFullName: loadBalancerFullName,
             SnsTopics: props.SnsTopics

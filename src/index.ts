@@ -14,7 +14,9 @@ export interface CloudWatchAlarmCreatorProps {
     readonly stage: string;
     readonly elbArn: string;
     readonly threshold4xx: number,
+    readonly requestCountThreshold4xx: number,
     readonly threshold5xx: number,
+    readonly requestCountThreshold5xx: number,
     readonly alarmTopics: string[];
 }
 
@@ -74,7 +76,9 @@ export class CloudWatchAlarmCreator extends Construct {
                 Region: cdk.Stack.of(this).region,
                 SnsTopics: props.alarmTopics,
                 Threshold4xx: props.threshold4xx,
+                RequestCountThreshold4xx: props.requestCountThreshold4xx,
                 Threshold5xx: props.threshold5xx,
+                RequestCountThreshold5xx: props.requestCountThreshold5xx,
             }
         });
     }
