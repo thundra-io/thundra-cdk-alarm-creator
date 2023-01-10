@@ -9,6 +9,7 @@ interface CreateCloudWatchAlarmProps {
 
 interface MetricDataQueryProps {
     MetricFor: '4XX' | '5XX',
+    RequestCountThreshold: number,
     TargetGroupFullName: string,
     LoadBalancerFullName: string,
 }
@@ -23,6 +24,7 @@ export async function createCloudWatchAlarm(props: CreateCloudWatchAlarmProps & 
             MetricFor: props.MetricFor,
             LoadBalancerFullName: props.LoadBalancerFullName,
             TargetGroupFullName: props.TargetGroupFullName,
+            RequestCountThreshold: props.RequestCountThreshold
         });
 
         await cw_client.send(
@@ -45,7 +47,7 @@ async function generateMetricDataQuery(props: MetricDataQueryProps): Promise<cw_
     const metricDataQuery: cw_sdk.MetricDataQuery[] = [
         {
             Id: 'e1',
-            Expression: '(m2 / m1) * 100',
+            Expression: `IF(m1>${props.RequestCountThreshold}, (m2 / m1) * 100)`,
             Label: `${props.MetricFor} Rate`
         },
         {
