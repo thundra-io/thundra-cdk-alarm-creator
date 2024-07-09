@@ -35,7 +35,7 @@ export class CloudWatchAlarmCreator extends Construct {
             functionName: `${this.prefix}alarms-cr-function${this.postfix}`,
             code: lambda.Code.fromAsset(path.join(__dirname, "functions")),
             handler: "index.handler",
-            runtime: lambda.Runtime.NODEJS_20_X,
+            runtime: lambda.Runtime.NODEJS_18_X,
             memorySize: 512,
             timeout: cdk.Duration.minutes(1),
             logRetention: log.RetentionDays.ONE_DAY,
